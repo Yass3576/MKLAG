@@ -1,0 +1,84 @@
+Bi:
+  a: sca
+  a_dim: 128
+  a_ffdim: 256
+  a_layers: 6
+  a_nhead: 8
+  f: m2
+  f_dim: 128
+  f_layers: 10
+  f_ln: false
+  f_ngp: 1
+  s_head_num_heads: 8
+  s_head_ffdim: 256
+  dropout: 0.0 #
+  hid_dim: 256 #
+Bu:                      
+  a: sa
+  a_dim: null
+  a_ffdim: null
+  a_layers: 1
+  a_nhead: 8
+  f: null
+  f_dim: null
+  f_layers: 10
+  f_ln: null
+  f_ngp: null
+  s_head_num_heads: 8
+  s_head_ffdim: 256
+  dropout: null
+  hid_dim: null
+FACT:
+  block: iuu
+  cmr: 0.1              
+  fpos: true
+  ntoken: 60
+  trans: false
+  mwt: 0.1
+Loss:
+  frame: 2.0
+  action: 1.0
+  mk: 1.0
+  mk_type: ordinal           
+  lag_type: ordinal    
+  ca: 1.0
+  sw: 5.0
+  a2fc: 1.0
+  match: o2o
+  nullw: 1.0
+  pc: 0.2
+  lag_ord_w: 1.0         
+  lag_reg_w: 1.0         
+  lag_regu_w: 1.0       
+opti:
+  learning_rate: 0.0005
+  l2: 0.05
+  optimizer: AdamW
+  schedule: Warmup      
+  swa: true
+  swa_lrs: 0.001
+  swa_epoch_start: 0.75
+TM:                      
+  use: false
+  m: 5
+  p: 0.05
+  t: 30
+data:
+  batch_size: 32
+  num_workers: 8
+  data_name: bovine.csv
+  dir_path: DataSplit/Morphokinetic
+  version: cda
+  cdt_annotation: true
+  blocked: true
+  max_frame: 301
+trainer:
+  max_epochs: 300
+  gradient_clip_val: 10.0
+  resume_from_checkpoint: null
+n_actions: 11
+n_tclasses: 5
+in_dim: 2048
+project_name: MKLag
+seed: 93
+ckpt: checkpoints/MKLAG_s1303/accs_trans=0.450.ckpt
