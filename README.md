@@ -34,7 +34,7 @@ This biologically-informed design was motivated by an analysis of morphokinetic 
 ## Installation
 
 ```bash
-git clone <!-- TODO: repo URL --> && cd MKLAG
+git clone https://github.com/Yass3576/MKLAG && cd MKLAG
 conda create -n mklag python=3.11 -y && conda activate mklag
 pip install -r requirements.txt
 ```
