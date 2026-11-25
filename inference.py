@@ -15,7 +15,7 @@ def main(cfg, out):
     test_loader = SequenceDataModule(**data_kwargs(cfg)).test_dataloader()
 
     if cfg.ckpt:
-        cfg.head_tclasses = head_classes(cfg.ckpt)
+        cfg.head_tclasses = head_classes(cfg.ckpt, ordinal=(cfg.Loss.mk_type == "ordinal"))
 
     model = MKLag(cfg)
     if cfg.ckpt:
@@ -36,5 +36,4 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     cfg = setup_cfg(args.cfg_file, args.set_cfgs)
-    print(cfg)
     main(cfg, args.out)

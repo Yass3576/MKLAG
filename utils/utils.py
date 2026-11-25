@@ -54,6 +54,7 @@ def flatten(xss: list) -> list:
     return [x for xs in xss for x in xs]
 
 
-def head_classes(ckpt):
+def head_classes(ckpt, ordinal=False):
     state_dict = torch.load(ckpt, map_location="cpu")["state_dict"]
-    return [v for k, v in state_dict.items() if "scene_head" in k and v.dim() == 2][-1].shape[0]
+    n_out = [v for k, v in state_dict.items() if "scene_head" in k and v.dim() == 2][-1].shape[0]
+    return n_out + 1 if ordinal else n_out
