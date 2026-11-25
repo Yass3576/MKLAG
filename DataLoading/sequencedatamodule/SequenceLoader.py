@@ -55,7 +55,7 @@ class SequenceDataset(Dataset):
         print(f"Max frame: {max_frame}")
         print(f"Annotation version : {version}")
 
-        self.data = pd.read_csv(data_path).set_index('video').drop_duplicates()
+        self.data = pd.read_csv(data_path).drop_duplicates(subset="video").set_index("video")
         self.data.columns = self.data.columns.str.replace(r'^ECC(\d)', r'EC\1', regex=True)
         self.video_paths = self.data.index
         self.mode = mode
@@ -129,7 +129,7 @@ class SequenceDataset(Dataset):
         ydev = self._getlabel(data=self.data, version=self.version, video_path=video_path,
                               start_frame=0, end_frame=T, max_frame=T)[:self.max_frame]
         
-
+       
         # Labels sanity checks
         if len(ydev) != T:
             raise ValueError(f"{video_path}: {len(ydev)} frame labels for {T} frames")
@@ -138,7 +138,7 @@ class SequenceDataset(Dataset):
                              f"but n_actions={self.n_actions}")
         if not 0 <= int(ycat) < self.n_tclasses:
             raise ValueError(f"{video_path}: ycat={int(ycat)} but n_tclasses={self.n_tclasses}")
-        print(embedding_name)
+
         return {
             'embedding': embedding,
             'ytrans': ytrans,
